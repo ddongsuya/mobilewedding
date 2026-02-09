@@ -446,7 +446,7 @@ function App() {
         방명록으로 바로가기
       </a>
 
-      {/* Fullscreen Cover Section */}
+      {/* Fullscreen Cover Section with Scroll Reveal */}
       {config.coverImage && (
         <Cover
           groomName={config.couple.groom.name}
@@ -455,6 +455,7 @@ function App() {
           time={config.event.time}
           venueName={config.event.venueName}
           coverImage={config.coverImage}
+          coverImages={['/cover-2.jpg', '/cover-3.jpg']}
         />
       )}
 
