@@ -122,11 +122,11 @@ const SAMPLE_WEDDING_CONFIG: WeddingConfig = {
     layout: 'grid',
   },
   location: {
-    address: '전라남도 여수시 오동도로 61-15',
+    address: '전남 여수시 신월로 496-25 히든베이호텔',
     detailAddress: '여수히든베이호텔 그랜드볼룸홀 B2F',
     coordinates: {
-      lat: 34.7460,
-      lng: 127.7408,
+      lat: 34.7604,
+      lng: 127.6627,
     },
     transportation: {
       car: '여수엑스포역에서 차량 10분',
