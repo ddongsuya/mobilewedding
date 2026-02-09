@@ -145,6 +145,69 @@ const CalendarButton = ({ event, location }: CalendarButtonProps) => {
 };
 
 /**
+ * 지도 버튼 컴포넌트
+ */
+interface MapButtonProps {
+  location: LocationConfig;
+}
+
+const MapButton = ({ location }: MapButtonProps) => {
+  const { coordinates, address } = location;
+  
+  // 카카오맵 URL (좌표 기반)
+  const kakaoMapUrl = `https://map.kakao.com/link/map/${encodeURIComponent(address)},${coordinates.lat},${coordinates.lng}`;
+  
+  // 네이버맵 URL (좌표 기반)
+  const naverMapUrl = `https://map.naver.com/v5/search/${encodeURIComponent(address)}?c=${coordinates.lng},${coordinates.lat},15,0,0,0,dh`;
+  
+  return (
+    <div className="flex gap-3 justify-center">
+      <a
+        href={kakaoMapUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-colors tap-target shadow-sm"
+        aria-label="카카오맵에서 위치 보기"
+      >
+        <MapIcon />
+        <span className="text-sm font-medium">카카오맵</span>
+      </a>
+      <a
+        href={naverMapUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-colors tap-target shadow-sm"
+        aria-label="네이버지도에서 위치 보기"
+      >
+        <MapIcon />
+        <span className="text-sm font-medium">네이버지도</span>
+      </a>
+    </div>
+  );
+};
+
+/**
+ * 지도 아이콘 컴포넌트
+ */
+const MapIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-5 w-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    aria-hidden="true"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+    />
+  </svg>
+);
+
+/**
  * 장소 아이콘 컴포넌트
  */
 const LocationIcon = () => (
@@ -249,9 +312,14 @@ export const EventInfo = ({ config, location }: EventInfoProps) => {
         
         {/* 캘린더 추가 버튼 - Requirements 2.5 - Premium minimal design */}
         {showCalendarButton && (
-          <div className="flex justify-center">
+          <div className="flex justify-center mb-4">
             <CalendarButton event={config} location={location} />
           </div>
+        )}
+        
+        {/* 지도 버튼 */}
+        {location && (
+          <MapButton location={location} />
         )}
       </div>
     </section>
