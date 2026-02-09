@@ -507,6 +507,14 @@ function App() {
         {/* 2. 결혼식 일정 - Requirements 2.1-2.5 */}
         <EventInfo config={config.event} location={config.location} />
 
+        {/* 식전 영상 - 갤러리 전에 배치 */}
+        {config.video?.enabled && (
+          <VideoSection 
+            youtubeId={config.video.youtubeId}
+            title={config.video.title}
+          />
+        )}
+
         {/* 3. 갤러리 - Requirements 3.1-3.4 */}
         <Gallery config={config.gallery} />
 
@@ -532,14 +540,6 @@ function App() {
 
         {/* 8. 공유하기 - Requirements 8.1-8.4 */}
         <Share config={config.share} url={currentUrl} />
-
-        {/* 9. 식전 영상 */}
-        {config.video?.enabled && (
-          <VideoSection 
-            youtubeId={config.video.youtubeId}
-            title={config.video.title}
-          />
-        )}
       </main>
 
       {/* 배경음악 플레이어 */}
