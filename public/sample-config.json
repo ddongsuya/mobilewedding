@@ -1,0 +1,156 @@
+{
+  "couple": {
+    "groom": {
+      "name": "김민준",
+      "englishName": "Minjun Kim",
+      "father": {
+        "name": "김철수",
+        "phone": "010-1234-5678",
+        "relation": "장남"
+      },
+      "mother": {
+        "name": "이영희",
+        "phone": "010-2345-6789",
+        "relation": "장남"
+      },
+      "phone": "010-3456-7890"
+    },
+    "bride": {
+      "name": "이서연",
+      "englishName": "Seoyeon Lee",
+      "father": {
+        "name": "이정호",
+        "phone": "010-4567-8901",
+        "relation": "장녀"
+      },
+      "mother": {
+        "name": "박미경",
+        "phone": "010-5678-9012",
+        "relation": "장녀"
+      },
+      "phone": "010-6789-0123"
+    },
+    "greeting": "서로 다른 두 사람이 만나\n하나의 사랑으로 결실을 맺게 되었습니다.\n\n저희 두 사람이 사랑의 이름으로\n지금부터 함께 걸어가려 합니다.\n\n귀한 걸음 하시어\n축복해 주시면 감사하겠습니다."
+  },
+  "event": {
+    "date": "2025-03-15",
+    "time": "14:00",
+    "venueName": "더채플앳청담",
+    "hallName": "그랜드볼룸 3층",
+    "calendarEnabled": true
+  },
+  "gallery": {
+    "images": [
+      {
+        "id": "1",
+        "url": "https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=400&fit=crop",
+        "alt": "커플 사진 1 - 웨딩 촬영",
+        "order": 1
+      },
+      {
+        "id": "2",
+        "url": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=400&fit=crop",
+        "alt": "커플 사진 2 - 야외 촬영",
+        "order": 2
+      },
+      {
+        "id": "3",
+        "url": "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=400&h=400&fit=crop",
+        "alt": "커플 사진 3 - 스튜디오 촬영",
+        "order": 3
+      },
+      {
+        "id": "4",
+        "url": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&h=400&fit=crop",
+        "alt": "커플 사진 4 - 드레스 촬영",
+        "order": 4
+      },
+      {
+        "id": "5",
+        "url": "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=400&h=400&fit=crop",
+        "alt": "커플 사진 5 - 부케 촬영",
+        "order": 5
+      },
+      {
+        "id": "6",
+        "url": "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=400&h=400&fit=crop",
+        "alt": "커플 사진 6 - 로맨틱 촬영",
+        "order": 6
+      }
+    ],
+    "layout": "grid"
+  },
+  "location": {
+    "address": "서울특별시 강남구 청담동 123-45",
+    "detailAddress": "더채플앳청담 3층",
+    "coordinates": {
+      "lat": 37.5219,
+      "lng": 127.0411
+    },
+    "transportation": {
+      "subway": "7호선 청담역 2번 출구에서 도보 5분",
+      "bus": "간선버스 147, 240, 463 청담역 하차",
+      "car": "강남대로에서 청담사거리 방면 우회전",
+      "parking": "건물 내 지하주차장 이용 가능 (2시간 무료)"
+    }
+  },
+  "accounts": {
+    "groom": [
+      {
+        "bank": "신한은행",
+        "accountNumber": "110-123-456789",
+        "holder": "김민준",
+        "kakaoPayLink": "https://qr.kakaopay.com/example1"
+      },
+      {
+        "bank": "국민은행",
+        "accountNumber": "123-45-6789012",
+        "holder": "김철수"
+      },
+      {
+        "bank": "우리은행",
+        "accountNumber": "1002-123-456789",
+        "holder": "이영희"
+      }
+    ],
+    "bride": [
+      {
+        "bank": "하나은행",
+        "accountNumber": "123-456789-01234",
+        "holder": "이서연",
+        "kakaoPayLink": "https://qr.kakaopay.com/example2"
+      },
+      {
+        "bank": "농협은행",
+        "accountNumber": "301-1234-5678-91",
+        "holder": "이정호"
+      },
+      {
+        "bank": "IBK기업은행",
+        "accountNumber": "123-456789-01-012",
+        "holder": "박미경"
+      }
+    ]
+  },
+  "guestbook": {
+    "enabled": true,
+    "maxLength": 500
+  },
+  "rsvp": {
+    "enabled": true,
+    "mealOption": true,
+    "deadline": "2025-03-08"
+  },
+  "share": {
+    "kakaoEnabled": true,
+    "kakaoAppKey": "",
+    "ogImage": "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&h=630&fit=crop",
+    "ogTitle": "김민준 ♥ 이서연 결혼합니다",
+    "ogDescription": "2025년 3월 15일 토요일 오후 2시\n더채플앳청담 그랜드볼룸 3층"
+  },
+  "theme": {
+    "primaryColor": "#e11d48",
+    "fontFamily": "Pretendard, sans-serif",
+    "backgroundImage": ""
+  }
+}
