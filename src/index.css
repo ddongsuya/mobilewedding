@@ -42,10 +42,8 @@
   }
 
   body {
-    /* Premium paper-like background */
+    /* Premium paper-like background - simplified for mobile performance */
     background-color: #faf9f7;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    background-blend-mode: soft-light;
     @apply text-gray-800;
     /* Safe area padding for notched devices (iPhone X+, etc.) */
     padding-top: env(safe-area-inset-top);
@@ -54,6 +52,8 @@
     padding-right: env(safe-area-inset-right);
     /* Minimum width for smallest mobile devices */
     min-width: 320px;
+    /* Mobile scroll performance */
+    -webkit-overflow-scrolling: touch;
   }
 
   /* Prevent horizontal scroll on mobile */
@@ -63,9 +63,11 @@
     max-width: 100vw;
   }
 
-  /* Smooth scrolling - Requirements 9.4: 키보드 네비게이션 지원 */
-  html {
-    scroll-behavior: smooth;
+  /* Smooth scrolling - only for non-touch devices for better performance */
+  @media (hover: hover) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   /* Respect user's motion preferences - Requirements 9.3 */
@@ -130,8 +132,8 @@
     pointer-events: auto;
   }
 
-  /* Improve touch scrolling on iOS */
-  * {
+  /* Improve touch scrolling on iOS - applied to scrollable containers only */
+  .scrollable {
     -webkit-overflow-scrolling: touch;
   }
 
@@ -769,16 +771,18 @@
   }
 
   /**
-   * Backdrop blur for modals (with fallback)
+   * Backdrop blur for modals (simplified for mobile performance)
    */
   .backdrop-blur-modal {
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.6);
   }
 
-  @supports not (backdrop-filter: blur(4px)) {
+  /* Only use backdrop-filter on devices that can handle it well */
+  @media (hover: hover) and (min-width: 768px) {
     .backdrop-blur-modal {
-      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      background-color: rgba(0, 0, 0, 0.5);
     }
   }
 

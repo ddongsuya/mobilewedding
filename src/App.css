@@ -442,29 +442,32 @@ li a {
 /**
  * Premium Design Enhancements
  * Scroll reveal animations and premium styling
+ * Optimized for mobile performance
  */
 
-/* Scroll reveal animation base */
+/* Scroll reveal animation base - GPU accelerated */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  will-change: opacity, transform;
 }
 
 .scroll-reveal.visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
-/* Staggered animation for gallery items */
+/* Staggered animation for gallery items - simplified */
 @keyframes stagger {
   0% {
     opacity: 0;
-    transform: translateY(20px) scale(0.95);
+    transform: translateY(15px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
@@ -495,92 +498,109 @@ li a {
   border-radius: 50%;
 }
 
-/* Elegant button hover effect */
+/* Elegant button hover effect - desktop only */
 .btn-elegant {
   position: relative;
   overflow: hidden;
 }
 
-.btn-elegant::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.4s ease, height 0.4s ease;
+@media (hover: hover) {
+  .btn-elegant::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+  }
+
+  .btn-elegant:hover::after {
+    width: 300px;
+    height: 300px;
+  }
 }
 
-.btn-elegant:hover::after {
-  width: 300px;
-  height: 300px;
-}
-
-/* Smooth image hover effect */
+/* Smooth image hover effect - desktop only */
 .image-hover {
   overflow: hidden;
 }
 
-.image-hover img {
-  transition: transform 0.5s ease;
+@media (hover: hover) {
+  .image-hover img {
+    transition: transform 0.5s ease;
+  }
+
+  .image-hover:hover img {
+    transform: scale(1.05);
+  }
 }
 
-.image-hover:hover img {
-  transform: scale(1.05);
-}
-
-/* Premium card style (for modals and special sections) */
+/* Premium card style (for modals and special sections) - simplified for mobile */
 .premium-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.98);
   border: 1px solid rgba(201, 168, 124, 0.2);
 }
 
-/* Heartbeat animation for heart icons */
+/* Only use backdrop-filter on desktop */
+@media (hover: hover) and (min-width: 768px) {
+  .premium-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Heartbeat animation for heart icons - simplified */
 @keyframes heartbeat {
   0%, 100% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 }
 
 .animate-heartbeat {
-  animation: heartbeat 1.5s ease-in-out infinite;
+  animation: heartbeat 2s ease-in-out infinite;
 }
 
-/* Float animation for decorative elements */
+/* Float animation - disabled on mobile for performance */
 @keyframes float {
   0%, 100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  /* Disabled by default on mobile */
 }
 
-/* Fade in up animation */
+@media (hover: hover) and (min-width: 768px) {
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+/* Fade in up animation - GPU accelerated */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translate3d(0, 20px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
+  animation: fadeInUp 0.4s ease-out forwards;
 }
 
 /* Reduced motion support */

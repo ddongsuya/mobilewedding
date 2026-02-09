@@ -86,12 +86,14 @@ export const Cover = ({ groomName, brideName, date, time, venueName, coverImage 
     >
       {/* 배경 이미지 */}
       <div 
-        className={`absolute inset-0 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ willChange: isLoaded ? 'auto' : 'opacity' }}
       >
         <img
           src={coverImage}
           alt="웨딩 커버 사진"
           className="w-full h-full object-cover object-center"
+          style={{ transform: 'translateZ(0)' }}
         />
       </div>
       
@@ -120,9 +122,10 @@ export const Cover = ({ groomName, brideName, date, time, venueName, coverImage 
       <div className="absolute top-0 left-0 right-0 pt-safe">
         <div className="pt-12 px-6 text-center">
           <p 
-            className={`font-serif text-white text-2xl sm:text-3xl tracking-[0.2em] font-light transition-all duration-1000 delay-300 ${
+            className={`font-serif text-white text-2xl sm:text-3xl tracking-[0.2em] font-light transition-all duration-700 delay-200 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
             }`}
+            style={{ transform: isLoaded ? 'translateY(0) translateZ(0)' : 'translateY(-1rem) translateZ(0)' }}
           >
             {groomName}
             <span className="mx-3 text-white/70">&</span>
@@ -136,9 +139,10 @@ export const Cover = ({ groomName, brideName, date, time, venueName, coverImage 
         <div className="pb-20 px-6 text-center text-white">
           {/* 날짜 - 큰 숫자 스타일 */}
           <div 
-            className={`mb-4 transition-all duration-1000 delay-500 ${
+            className={`mb-4 transition-all duration-700 delay-300 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
+            style={{ transform: isLoaded ? 'translateY(0) translateZ(0)' : 'translateY(1rem) translateZ(0)' }}
           >
             <div className="flex items-center justify-center gap-2 font-serif">
               <span className="text-5xl sm:text-6xl font-light tracking-wider">
@@ -160,7 +164,7 @@ export const Cover = ({ groomName, brideName, date, time, venueName, coverImage 
           
           {/* 장소 */}
           <p 
-            className={`text-sm sm:text-base text-white/70 tracking-wider transition-all duration-1000 delay-700 ${
+            className={`text-sm sm:text-base text-white/70 tracking-wider transition-all duration-700 delay-500 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
@@ -170,7 +174,7 @@ export const Cover = ({ groomName, brideName, date, time, venueName, coverImage 
           {/* 스크롤 다운 버튼 */}
           <button
             onClick={handleScrollDown}
-            className={`mt-8 text-white/60 hover:text-white transition-all duration-1000 delay-1000 ${
+            className={`mt-8 text-white/60 hover:text-white transition-all duration-700 delay-700 ${
               isLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             aria-label="아래로 스크롤"
