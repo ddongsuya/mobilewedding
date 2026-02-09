@@ -161,7 +161,7 @@ const SAMPLE_WEDDING_CONFIG: WeddingConfig = {
   share: {
     kakaoEnabled: true,
     kakaoAppKey: 'a93bc92f73d8370de545abb1ea7d2db8',
-    ogImage: '/cover.jpg',
+    ogImage: 'https://mobilewedding-alpha.vercel.app/cover.jpg',
     ogTitle: '임정모 ♥ 최화형 결혼합니다',
     ogDescription: '2026년 8월 29일 토요일 오후 12시 30분\n여수히든베이호텔 그랜드볼룸홀 B2F',
   },
