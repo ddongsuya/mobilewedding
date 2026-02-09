@@ -25,6 +25,34 @@ export interface WeddingConfig {
   theme: ThemeConfig;
   /** 커버 이미지 URL (풀스크린 히어로 이미지) */
   coverImage?: string;
+  /** 배경음악 설정 */
+  music?: MusicConfig;
+  /** 식전 영상 설정 */
+  video?: VideoConfig;
+}
+
+/**
+ * 배경음악 설정 인터페이스
+ */
+export interface MusicConfig {
+  /** 배경음악 활성화 여부 */
+  enabled: boolean;
+  /** 음악 파일 URL */
+  src: string;
+}
+
+/**
+ * 식전 영상 설정 인터페이스
+ */
+export interface VideoConfig {
+  /** 영상 섹션 활성화 여부 */
+  enabled: boolean;
+  /** YouTube 영상 ID */
+  youtubeId?: string;
+  /** 직접 비디오 URL */
+  videoUrl?: string;
+  /** 섹션 제목 */
+  title?: string;
 }
 
 // ============================================================================

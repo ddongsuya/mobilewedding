@@ -26,6 +26,8 @@ import {
   Guestbook,
   RSVP,
   Share,
+  MusicPlayer,
+  VideoSection,
 } from './components';
 
 // 타입 임포트
@@ -166,6 +168,17 @@ const SAMPLE_WEDDING_CONFIG: WeddingConfig = {
   theme: {
     primaryColor: '#e11d48',
     fontFamily: 'Pretendard, sans-serif',
+  },
+  // 배경음악 설정 (저작권 무료 BGM)
+  music: {
+    enabled: true,
+    src: 'https://cdn.pixabay.com/download/audio/2022/02/22/audio_d1718ab41b.mp3', // Wedding Day - Pixabay
+  },
+  // 식전 영상 설정 (YouTube ID 또는 비디오 URL)
+  video: {
+    enabled: false,  // YouTube ID 입력 후 true로 변경
+    youtubeId: '',   // 예: 'dQw4w9WgXcQ'
+    title: '식전 영상',
   },
 };
 
@@ -519,7 +532,20 @@ function App() {
 
         {/* 8. 공유하기 - Requirements 8.1-8.4 */}
         <Share config={config.share} url={currentUrl} />
+
+        {/* 9. 식전 영상 */}
+        {config.video?.enabled && (
+          <VideoSection 
+            youtubeId={config.video.youtubeId}
+            title={config.video.title}
+          />
+        )}
       </main>
+
+      {/* 배경음악 플레이어 */}
+      {config.music?.enabled && (
+        <MusicPlayer src={config.music.src} />
+      )}
 
       {/* Footer - Premium Design */}
       <footer 

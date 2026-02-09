@@ -12,3 +12,5 @@ export { Gallery } from './Gallery';
 export { Guestbook } from './Guestbook';
 export { RSVP } from './RSVP';
 export { Share } from './Share';
+export { MusicPlayer } from './MusicPlayer';
+export { VideoSection } from './VideoSection';
