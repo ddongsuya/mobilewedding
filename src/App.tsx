@@ -72,8 +72,7 @@ const SAMPLE_WEDDING_CONFIG: WeddingConfig = {
         relation: '장녀',
       },
     },
-    greeting: `8월의 끝자락
-여름의 열기를 닮은 뜨거운 마음으로
+    greeting: `8월의 끝자락, 여름의 열기를 닮은 뜨거운 마음으로
 평생을 약속하는 첫 걸음을 내딛습니다.
 
 기쁜 마음으로 참석하시어
