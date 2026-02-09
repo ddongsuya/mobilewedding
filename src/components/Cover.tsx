@@ -1,11 +1,11 @@
 /**
  * Cover 컴포넌트
  * 
- * 스크롤 리빌 방식으로 여러 장의 사진이 순차적으로 나타나는 커버
- * 첫 화면에서 강렬한 인상 전달
+ * 풀스크린 세로 사진 커버 + 텍스트 오버레이
+ * 첫 화면에서 감성 전달 최우선
  */
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 interface CoverProps {
   groomName: string;
@@ -14,7 +14,6 @@ interface CoverProps {
   time: string;
   venueName: string;
   coverImage: string;
-  coverImages?: string[]; // 추가 커버 이미지들
 }
 
 /**
@@ -54,38 +53,11 @@ const formatDateParts = (dateString: string) => {
   return { year, month, day, weekday };
 };
 
-/**
- * 개별 커버 섹션 컴포넌트
- */
-interface CoverSectionProps {
-  image: string;
-  index: number;
-  isFirst: boolean;
-  isLast: boolean;
-  groomName?: string;
-  brideName?: string;
-  date?: string;
-  time?: string;
-  venueName?: string;
-}
-
-const CoverSection = ({ 
-  image, 
-  index, 
-  isFirst, 
-  isLast,
-  groomName,
-  brideName,
-  date,
-  time,
-  venueName
-}: CoverSectionProps) => {
-  const [isVisible, setIsVisible] = useState(isFirst);
+export const Cover = ({ groomName, brideName, date, time, venueName, coverImage }: CoverProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const dateParts = formatDateParts(date);
   
-  const dateParts = date ? formatDateParts(date) : null;
-  
+  // 시간 포맷팅 (14:00 -> 2:00 PM)
   const formatTime = (timeStr: string) => {
     const [hours, minutes] = timeStr.split(':').map(Number);
     const period = hours >= 12 ? 'PM' : 'AM';
@@ -94,66 +66,32 @@ const CoverSection = ({
   };
 
   useEffect(() => {
+    // 이미지 프리로드
     const img = new Image();
-    img.src = image;
+    img.src = coverImage;
     img.onload = () => setIsLoaded(true);
-  }, [image]);
-
-  useEffect(() => {
-    if (isFirst) {
-      setIsVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { 
-        threshold: 0.3,
-        rootMargin: '-10% 0px'
-      }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [isFirst]);
+  }, [coverImage]);
 
   const handleScrollDown = () => {
     window.scrollTo({
-      top: window.innerHeight * (index + 1),
+      top: window.innerHeight,
       behavior: 'smooth'
     });
   };
 
   return (
-    <div 
-      ref={sectionRef}
+    <section 
       className="relative h-screen w-full overflow-hidden"
-      style={{ 
-        position: isFirst ? 'relative' : 'sticky',
-        top: 0,
-        zIndex: index
-      }}
+      aria-label="웨딩 커버"
     >
-      {/* 배경 이미지 with mask reveal effect */}
+      {/* 배경 이미지 */}
       <div 
-        className="absolute inset-0 transition-all duration-1000 ease-out"
-        style={{ 
-          clipPath: isVisible 
-            ? 'inset(0% 0% 0% 0%)' 
-            : 'inset(0% 0% 100% 0%)',
-          opacity: isLoaded ? 1 : 0
-        }}
+        className={`absolute inset-0 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ willChange: isLoaded ? 'auto' : 'opacity' }}
       >
         <img
-          src={image}
-          alt={`웨딩 커버 사진 ${index + 1}`}
+          src={coverImage}
+          alt="웨딩 커버 사진"
           className="w-full h-full object-cover object-center"
           style={{ transform: 'translateZ(0)' }}
         />
@@ -164,16 +102,15 @@ const CoverSection = ({
         <div className="absolute inset-0 bg-gray-200 animate-pulse" />
       )}
       
-      {/* 그라데이션 오버레이 - 첫 번째와 마지막에만 */}
-      {isFirst && (
-        <div 
-          className="absolute top-0 left-0 right-0 h-48 pointer-events-none"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)'
-          }}
-        />
-      )}
+      {/* 상단 그라데이션 오버레이 */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-48 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)'
+        }}
+      />
       
+      {/* 하단 그라데이션 오버레이 */}
       <div 
         className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none"
         style={{
@@ -181,121 +118,71 @@ const CoverSection = ({
         }}
       />
       
-      {/* 첫 번째 섹션: 이름 표시 */}
-      {isFirst && groomName && brideName && (
-        <div className="absolute top-0 left-0 right-0 pt-safe">
-          <div className="pt-12 px-6 text-center">
-            <p 
-              className={`font-serif text-white text-2xl sm:text-3xl tracking-[0.2em] font-light transition-all duration-700 delay-300 ${
-                isVisible && isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-              }`}
-            >
-              {groomName}
-              <span className="mx-3 text-white/70">&</span>
-              {brideName}
-            </p>
-          </div>
+      {/* 상단 텍스트 - 이름 */}
+      <div className="absolute top-0 left-0 right-0 pt-safe">
+        <div className="pt-12 px-6 text-center">
+          <p 
+            className={`font-serif text-white text-2xl sm:text-3xl tracking-[0.2em] font-light transition-all duration-700 delay-200 ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+            }`}
+            style={{ transform: isLoaded ? 'translateY(0) translateZ(0)' : 'translateY(-1rem) translateZ(0)' }}
+          >
+            {groomName}
+            <span className="mx-3 text-white/70">&</span>
+            {brideName}
+          </p>
         </div>
-      )}
+      </div>
       
-      {/* 마지막 섹션: 날짜, 시간, 장소 + 스크롤 버튼 */}
-      {isLast && dateParts && time && venueName && (
-        <div className="absolute bottom-0 left-0 right-0 pb-safe">
-          <div className="pb-20 px-6 text-center text-white">
-            <div 
-              className={`mb-4 transition-all duration-700 delay-500 ${
-                isVisible && isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-            >
-              <div className="flex items-center justify-center gap-2 font-serif">
-                <span className="text-5xl sm:text-6xl font-light tracking-wider">
-                  {dateParts.month}
-                </span>
-                <span className="text-3xl sm:text-4xl text-white/60">.</span>
-                <span className="text-5xl sm:text-6xl font-light tracking-wider">
-                  {dateParts.day}
-                </span>
-              </div>
-              <div className="mt-2 flex items-center justify-center gap-3 text-sm sm:text-base text-white/80 tracking-widest">
-                <span>{dateParts.year}</span>
-                <span className="text-white/40">|</span>
-                <span>{dateParts.weekday}</span>
-                <span className="text-white/40">|</span>
-                <span>{formatTime(time)}</span>
-              </div>
+      {/* 하단 텍스트 - 날짜, 시간, 장소 */}
+      <div className="absolute bottom-0 left-0 right-0 pb-safe">
+        <div className="pb-20 px-6 text-center text-white">
+          {/* 날짜 - 큰 숫자 스타일 */}
+          <div 
+            className={`mb-4 transition-all duration-700 delay-300 ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+            style={{ transform: isLoaded ? 'translateY(0) translateZ(0)' : 'translateY(1rem) translateZ(0)' }}
+          >
+            <div className="flex items-center justify-center gap-2 font-serif">
+              <span className="text-5xl sm:text-6xl font-light tracking-wider">
+                {dateParts.month}
+              </span>
+              <span className="text-3xl sm:text-4xl text-white/60">.</span>
+              <span className="text-5xl sm:text-6xl font-light tracking-wider">
+                {dateParts.day}
+              </span>
             </div>
-            
-            <p 
-              className={`text-sm sm:text-base text-white/70 tracking-wider transition-all duration-700 delay-700 ${
-                isVisible && isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-            >
-              {venueName}
-            </p>
-            
-            <button
-              onClick={handleScrollDown}
-              className={`mt-8 text-white/60 hover:text-white transition-all duration-700 delay-900 ${
-                isVisible && isLoaded ? 'opacity-100' : 'opacity-0'
-              }`}
-              aria-label="아래로 스크롤"
-            >
-              <ScrollDownIcon />
-            </button>
+            <div className="mt-2 flex items-center justify-center gap-3 text-sm sm:text-base text-white/80 tracking-widest">
+              <span>{dateParts.year}</span>
+              <span className="text-white/40">|</span>
+              <span>{dateParts.weekday}</span>
+              <span className="text-white/40">|</span>
+              <span>{formatTime(time)}</span>
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* 중간 섹션: 스크롤 힌트만 */}
-      {!isFirst && !isLast && (
-        <div className="absolute bottom-8 left-0 right-0 text-center">
+          
+          {/* 장소 */}
+          <p 
+            className={`text-sm sm:text-base text-white/70 tracking-wider transition-all duration-700 delay-500 ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
+            {venueName}
+          </p>
+          
+          {/* 스크롤 다운 버튼 */}
           <button
             onClick={handleScrollDown}
-            className={`text-white/60 hover:text-white transition-all duration-500 ${
-              isVisible && isLoaded ? 'opacity-100' : 'opacity-0'
+            className={`mt-8 text-white/60 hover:text-white transition-all duration-700 delay-700 ${
+              isLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             aria-label="아래로 스크롤"
           >
             <ScrollDownIcon />
           </button>
         </div>
-      )}
-    </div>
-  );
-};
-
-export const Cover = ({ 
-  groomName, 
-  brideName, 
-  date, 
-  time, 
-  venueName, 
-  coverImage,
-  coverImages = []
-}: CoverProps) => {
-  // 모든 커버 이미지 배열 (기본 이미지 + 추가 이미지)
-  const allImages = [coverImage, ...coverImages];
-  const totalSections = allImages.length;
-
-  return (
-    <section 
-      aria-label="웨딩 커버"
-      style={{ height: `${totalSections * 100}vh` }}
-    >
-      {allImages.map((image, index) => (
-        <CoverSection
-          key={index}
-          image={image}
-          index={index}
-          isFirst={index === 0}
-          isLast={index === totalSections - 1}
-          groomName={index === 0 ? groomName : undefined}
-          brideName={index === 0 ? brideName : undefined}
-          date={index === totalSections - 1 ? date : undefined}
-          time={index === totalSections - 1 ? time : undefined}
-          venueName={index === totalSections - 1 ? venueName : undefined}
-        />
-      ))}
+      </div>
     </section>
   );
 };
