@@ -152,13 +152,13 @@ interface MapButtonProps {
 }
 
 const MapButton = ({ location }: MapButtonProps) => {
-  const { coordinates, address } = location;
+  const { address } = location;
   
-  // 카카오맵 URL (좌표 기반)
-  const kakaoMapUrl = `https://map.kakao.com/link/map/${encodeURIComponent(address)},${coordinates.lat},${coordinates.lng}`;
+  // 카카오맵 URL (검색 기반)
+  const kakaoMapUrl = `https://map.kakao.com/?q=${encodeURIComponent(address)}`;
   
-  // 네이버맵 URL (좌표 기반)
-  const naverMapUrl = `https://map.naver.com/v5/search/${encodeURIComponent(address)}?c=${coordinates.lng},${coordinates.lat},15,0,0,0,dh`;
+  // 네이버맵 URL (검색 기반)
+  const naverMapUrl = `https://map.naver.com/v5/search/${encodeURIComponent(address)}`;
   
   return (
     <div className="flex gap-3 justify-center">
