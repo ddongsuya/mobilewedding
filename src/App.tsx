@@ -156,7 +156,7 @@ const SAMPLE_WEDDING_CONFIG: WeddingConfig = {
   rsvp: {
     enabled: true,
     mealOption: true,
-    deadline: '2025-03-08',
+    deadline: '2026-08-20',
   },
   share: {
     kakaoEnabled: true,
@@ -522,9 +522,6 @@ function App() {
         <Map config={config.location} />
         */}
 
-        {/* 5. 축의금 계좌 - Requirements 5.1-5.4 */}
-        <Account config={config.accounts} />
-
         {/* 6. 방명록 - Requirements 6.1-6.5 */}
         <div id="guestbook">
           <Guestbook
@@ -537,6 +534,9 @@ function App() {
 
         {/* 7. 참석 여부 RSVP - Requirements 7.1-7.5 */}
         <RSVP config={config.rsvp} onSubmit={handleRsvpSubmit} />
+
+        {/* 5. 축의금 계좌 - Requirements 5.1-5.4 */}
+        <Account config={config.accounts} />
 
         {/* 8. 공유하기 - Requirements 8.1-8.4 */}
         <Share config={config.share} url={currentUrl} />

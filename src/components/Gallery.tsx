@@ -415,7 +415,7 @@ export const Gallery = ({ config }: GalleryProps) => {
         id="gallery-title" 
         className="text-center font-serif text-2xl sm:text-3xl font-light text-gray-800 mb-8 sm:mb-10 tracking-wider"
       >
-        갤러리
+        Gallery
       </h2>
       
       {/* 이미지 그리드 - Full bleed 2열 디자인 */}

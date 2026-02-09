@@ -25,7 +25,7 @@ export const VideoSection = ({
           id="video-section-title"
           className="text-center font-serif text-2xl sm:text-3xl font-light text-gray-800 mb-8 tracking-wider"
         >
-          {title}
+          Pre-Wedding Film
         </h2>
 
         <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-md">
