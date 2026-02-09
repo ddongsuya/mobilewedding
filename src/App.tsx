@@ -176,8 +176,8 @@ const SAMPLE_WEDDING_CONFIG: WeddingConfig = {
   },
   // 식전 영상 설정 (YouTube ID 또는 비디오 URL)
   video: {
-    enabled: false,  // YouTube ID 입력 후 true로 변경
-    youtubeId: '',   // 예: 'dQw4w9WgXcQ'
+    enabled: true,
+    youtubeId: 'rfP2K1pPmLo',
     title: '식전 영상',
   },
 };
