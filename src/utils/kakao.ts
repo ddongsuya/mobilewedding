@@ -35,7 +35,9 @@ export interface KakaoShareResult {
  * @returns SDK 로드 여부
  */
 export function isKakaoSDKLoaded(): boolean {
-  return typeof window !== 'undefined' && !!window.Kakao;
+  return typeof window !== 'undefined' && 
+         typeof window.Kakao !== 'undefined' && 
+         window.Kakao !== null;
 }
 
 /**
@@ -136,7 +138,8 @@ export function shareToKakao(config: ShareConfig, url: string): KakaoShareResult
 
     // SDK 로드 확인
     if (!isKakaoSDKLoaded()) {
-      return { success: false, error: '카카오 SDK가 로드되지 않았습니다' };
+      console.error('Kakao SDK not loaded. window.Kakao:', window.Kakao);
+      return { success: false, error: '카카오 SDK가 로드되지 않았습니다. 페이지를 새로고침해주세요.' };
     }
 
     // SDK 초기화 (필요한 경우)
@@ -151,13 +154,19 @@ export function shareToKakao(config: ShareConfig, url: string): KakaoShareResult
       }
     }
 
+    // OG 이미지 URL을 절대 경로로 변환
+    let imageUrl = config.ogImage || '';
+    if (imageUrl && !imageUrl.startsWith('http')) {
+      imageUrl = `${window.location.origin}${imageUrl}`;
+    }
+
     // 카카오톡 공유 실행
     window.Kakao!.Share.sendDefault({
       objectType: 'feed',
       content: {
         title: config.ogTitle || '결혼식에 초대합니다',
         description: config.ogDescription || '',
-        imageUrl: config.ogImage || '',
+        imageUrl: imageUrl,
         link: {
           mobileWebUrl: url,
           webUrl: url,
@@ -176,6 +185,7 @@ export function shareToKakao(config: ShareConfig, url: string): KakaoShareResult
 
     return { success: true };
   } catch (error) {
+    console.error('Kakao share error:', error);
     return { 
       success: false, 
       error: error instanceof Error ? error.message : '카카오톡 공유 중 오류가 발생했습니다' 
