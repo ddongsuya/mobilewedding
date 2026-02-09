@@ -172,7 +172,7 @@ const SAMPLE_WEDDING_CONFIG: WeddingConfig = {
   // 배경음악 설정 (저작권 무료 BGM)
   music: {
     enabled: true,
-    src: 'https://cdn.pixabay.com/download/audio/2022/02/22/audio_d1718ab41b.mp3', // Wedding Day - Pixabay
+    src: '/lkoliks-romantic-wedding-background-music-337990.mp3',
   },
   // 식전 영상 설정 (YouTube ID 또는 비디오 URL)
   video: {
